@@ -31,13 +31,26 @@ func AddTask(obj entities.Task) {
 	}
 }
 
+func UpdateTask(id string, checked bool) bool{
+	session, err := mgo.Dial("localhost:27017")
+	c := session.DB("todo").C("task")
+	
+	erro := c.Update(bson.M{"id": id}, bson.M{"$set": bson.M{"checked": checked }})
+	
+	if erro != nil {
+        panic(err)
+    }
+	
+	return true
+}
+
 func GetTask(id string) entities.Task{
 	session, err := mgo.Dial("localhost:27017")
 	c := session.DB("todo").C("task")
 	
 	result := entities.Task{}
 	
-	err = c.Find(bson.M{"Id": id}).One(&result)
+	err = c.Find(bson.M{"id": id}).One(&result)
 	
 	if err != nil {
 		log.Fatal(err)

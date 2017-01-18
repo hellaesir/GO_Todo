@@ -7,5 +7,5 @@ type Task struct{
 	SupposedEndDate string `json:"supposedEndDate,omitempty"`
 	RealStartDate string `json:"realStartDate,omitempty"`
 	RealEndDate string `json:"realEndDate,omitempty"`
-	Checked bool `json:"checked,omitempty"`
+	Checked bool
 }

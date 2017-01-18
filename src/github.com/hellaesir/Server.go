@@ -15,9 +15,7 @@ func GetTasksEndpoint(w http.ResponseWriter, req *http.Request){
 
 	var results []entities.Task = database.GetAllTasks()
 	
-	for _,item := range results{
-		json.NewEncoder(w).Encode(item)
-	}
+	json.NewEncoder(w).Encode(results)
 	
 	return
 }
@@ -36,13 +34,13 @@ func CheckTaskEndpoint(w http.ResponseWriter, req *http.Request){
 		
 	var id string = params["id"]
 	
-	task := database.GetTask(id)
+	ret := database.UpdateTask(id, true)
 	
-	task.Checked = true
-	
-	database.AddTask(task)
-	
-	json.NewEncoder(w).Encode("OK")
+	if ret {
+		json.NewEncoder(w).Encode("OK")
+	}else{
+		json.NewEncoder(w).Encode("NOK")
+	}
 }
 
 func UncheckTaskEndpoint(w http.ResponseWriter, req *http.Request){
@@ -50,20 +48,20 @@ func UncheckTaskEndpoint(w http.ResponseWriter, req *http.Request){
 		
 	var id string = params["id"]
 	
-	task := database.GetTask(id)
+	ret := database.UpdateTask(id, false)
 	
-	task.Checked = false
-	
-	database.AddTask(task)
-	
-	json.NewEncoder(w).Encode("OK")
+	if ret {
+		json.NewEncoder(w).Encode("OK")
+	}else{
+		json.NewEncoder(w).Encode("NOK")
+	}
 }
 
 func main(){
 	router := mux.NewRouter()
 	router.HandleFunc("/tasks", GetTasksEndpoint).Methods("GET")
 	router.HandleFunc("/addtask", AddTasksEndpoint).Methods("POST")
-	router.HandleFunc("/checktask/{id}", CheckTaskEndpoint).Methods("POST")
-	router.HandleFunc("/unchecktask/{id}", UncheckTaskEndpoint).Methods("POST")
+	router.HandleFunc("/checktask/{id}", CheckTaskEndpoint).Methods("PUT")
+	router.HandleFunc("/unchecktask/{id}", UncheckTaskEndpoint).Methods("PUT")
 	log.Fatal(http.ListenAndServe(":12345", router))
 }
