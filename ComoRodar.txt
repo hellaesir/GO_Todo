@@ -1,0 +1,10 @@
+$/src > go build github.com/hellaesir/
+$/src > go run github.com/hellaesir/Server.go
+
+
+obs: Mongo instalado e rodando na porta default.
+
+ref: https://www.thepolyglotdeveloper.com/2016/07/create-a-simple-restful-api-with-golang/
+https://geekmonkey.org/2012/09/comparison-of-ides-for-google-go/
+
+https://gist.github.com/border/3489566

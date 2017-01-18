@@ -4,6 +4,7 @@ import (
 	"log"
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
+	"github.com/satori/go.uuid"
 	"github.com/hellaesir/entities"
 )
 
@@ -21,6 +22,8 @@ func AddTask(obj entities.Task) {
 	//err = c.Insert(&Person{"Ale", "+55 53 8116 9639"},
 	//           &Person{"Cla", "+55 53 8402 8510"})
 	
+	obj.Id = uuid.NewV4().String()
+	
 	err = c.Insert(obj)
 			   
 	if err != nil {
@@ -28,13 +31,13 @@ func AddTask(obj entities.Task) {
 	}
 }
 
-func GetTask(id int) entities.Task{
+func GetTask(id string) entities.Task{
 	session, err := mgo.Dial("localhost:27017")
 	c := session.DB("todo").C("task")
 	
 	result := entities.Task{}
 	
-	err = c.Find(bson.M{"id": id}).One(&result)
+	err = c.Find(bson.M{"Id": id}).One(&result)
 	
 	if err != nil {
 		log.Fatal(err)
