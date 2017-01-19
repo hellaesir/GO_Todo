@@ -1,0 +1,7 @@
+body{
+		background-color: #eee;
+}
+
+.checked {
+      text-decoration:line-through;
+}
