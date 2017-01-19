@@ -13,7 +13,7 @@
 		<body>
 			<nav>
 				<div class="nav-wrapper">
-					<a href="#!" class="brand-logo">Logo</a>
+					<a href="#!" class="brand-logo">Natasks</a>
 					<a href="#" data-activates="mobile-demo" class="button-collapse">
 						<i class="material-icons">menu</i>
 					</a>
@@ -32,7 +32,7 @@
 					</ul>
 				</div>
 			</nav>
-			<ul id="tasks">
+			<ul class="tasks">
 				<li style="opacity: 0">
 					<div class="row">
 						<div class="col s12 m6 offset-m3">
@@ -76,6 +76,8 @@
 						</div>
 					</div>
 				</li>
+			</ul>
+			<ul class="tasks">
 				<li style="opacity: 0">
 					<div class="row">
 						<div class="col s12 m6 offset-m3">
@@ -131,11 +133,12 @@
 									<label for="last_name">Descrição</label>
 								</div>
 								<div class="input-field col s3">
-									<input id="last_name" type="text" class="validate" />
-									<label for="last_name">Last Name</label>
+									<input type="date" class="datepicker"/>
+									<label for="last_name">Data previsão início</label>
 								</div>
 								<div class="input-field col s3">
-									<input type="date" class="datepicker">
+									<input type="date" class="datepicker" />
+									<label for="last_name">Data previsão término</label>
 								</div>
 							</div>
 						</div>
@@ -154,10 +157,10 @@
 				$( document ).ready(function(){
 					$(".button-collapse").sideNav();
 
-					Materialize.showStaggeredList('#tasks');
+					Materialize.showStaggeredList('.tasks');
 
 					$('.modal').modal();
-					
+
 					$('.datepicker').pickadate({
 						selectMonths: true // Creates a dropdown to control month
 				    });
